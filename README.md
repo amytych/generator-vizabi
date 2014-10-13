@@ -4,6 +4,7 @@
 
 Generates tools and components for vizabi.
 This generator must be executed inside Vizabi's root folder.
+This is a Yeoman project.
 
 For more information about vizabi, [visit vizabi on GitHub](https://github.com/Gapminder/vizabi)
 
