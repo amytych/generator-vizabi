@@ -1,0 +1,8 @@
+<% var relative = (subfolder) ? "../../" : "../"; %>
+@import '<%= relative %>tool';
+
+.<%= identifier %> {
+	@extend .vizabi-tool;
+	<% for(var i in components) { %>
+	@import '<%= relative %>../components/<%= components[i].path_scss %>';<% } %>
+}
