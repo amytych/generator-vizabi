@@ -2,7 +2,7 @@
   "name": "generator-vizabi",
   "version": "0.1.0",
   "description": "Generator for Vizabi",
-  "license": "MIT",
+  "license": "BSD",
   "main": "app/index.js",
   "repository": "Gapminder/generator-vizabi",
   "author": {
