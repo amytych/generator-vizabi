@@ -1,0 +1,25 @@
+//general styles
+#<%= identifier %> {
+    //...
+}
+
+//large specific styles
+&.large {
+    #<%= identifier %> {
+     	//...
+    }
+}
+
+//medium specific styles
+&.medium {
+    #<%= identifier %> {
+        //...
+    }
+}
+
+//small specific styles
+&.small {
+    #<%= identifier %> {
+        //...
+    }
+}
