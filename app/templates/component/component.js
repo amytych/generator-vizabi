@@ -12,7 +12,7 @@ define([
          * Executed once, before template loading
          */
         init: function(context, options) {
-            this.name = <%= identifier %>;
+            this.name = '<%= identifier %>';
             this.template = "components/<%= subfolder %><%= identifier %>/<%= identifier %>";
             this.tool = context;
             <% for(var i in components) { %>
