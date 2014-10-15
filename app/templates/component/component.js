@@ -17,7 +17,15 @@ define([
             this.tool = context;
             <% for(var i in components) { %>
             this.addComponent('<%= components[i].path %>', {
-                placeholder: '<%= components[i].placeholder %>'
+                placeholder: '<%= components[i].placeholder %>'<% if(components[i].path == '_gapminder/buttonlist') { %>,
+                    buttons: [{
+                            id: "geo",
+                            title: "Country",
+                            icon: "globe",
+
+                        }],
+                    data: options.data
+                <% } %>
             });
             <% } %>
             this._super(context, options);
