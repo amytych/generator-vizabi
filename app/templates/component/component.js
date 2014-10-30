@@ -1,67 +1,64 @@
 //<%= name %>
 define([
     'd3',
-    'underscore',
+    'lodash',
+    'base/utils',
     'base/component'
-], function(d3, _, Component) {
+], function(d3, _, utils, Component) {
 
-	var <%= js_name %> = Component.extend({
+    var <%= js_name %> = Component.extend({
 
-		/*
-         * INIT:
-         * Executed once, before template loading
+        /**
+         * Initializes the component.
+         * Executed once before any template is rendered.
+         * @param options The options passed to the component
+         * @param context The component's parent component or tool
          */
-        init: function(context, options) {
-            this.name = '<%= identifier %>';
+        init: function(options, context) {
             this.template = "components/<%= subfolder %><%= identifier %>/<%= identifier %>";
-            this.tool = context;
-            <% for(var i in components) { %>
-            this.addComponent('<%= components[i].path %>', {
-                placeholder: '<%= components[i].placeholder %>'<% if(components[i].path == '_gapminder/buttonlist') { %>,
-                    buttons: [{
-                            id: "geo",
-                            title: "Country",
-                            icon: "globe",
 
-                        }],
-                    data: options.data
-                <% } %>
-            });
-            <% } %>
-            this._super(context, options);
+            //specifying subcomponents
+            this.components = [<%
+            for (var i in components) { %>{
+                component: '<%= components[i].path %>',
+                placeholder: '<%= components[i].placeholder %>'
+                //model: ['time']  //pass this model to this component 
+            },
+            <% } %>];
+
+            //contructor is the same as any component
+            this._super(options, context);
         },
 
-        /*
-         * POSTRENDER:
-         * Executed after template is loaded
-         * Ideally, it contains instantiations related to template
+        /**
+         * Executes after the template is loaded and rendered.
+         * Ideally, it contains HTML instantiations related to template
+         * At this point, this.element and this.placeholder are available as a d3 objects
          */
         postRender: function() {
-        	//E.g: graph = this.element.select('#graph');
+            //E.g: var graph = this.element.select('#graph');
         },
 
-
-        /*
-         * UPDATE:
-         * Executed whenever data is changed
-         * Ideally, it contains only operations related to data events
+        /**
+         * Executes everytime there's an update event.
+         * Ideally, only operations related to changes in the model
+         * At this point, this.element is available as a d3 object
          */
         update: function() {
-            //code here
+            //E.g: var year = this.model.get('value');
         },
 
-        /*
-         * RESIZE:
-         * Executed whenever the container is resized
-         * Ideally, it contains only operations related to size
+        /**
+         * Executes everytime the container or vizabi is resized
+         * Ideally,it contains only operations related to size
          */
         resize: function() {
-            //code here
+            //E.g: var height = this.placeholder.style('height');
         },
 
 
     });
 
-    return <%= js_name %>;
+    return <%=js_name %> ;
 
 });

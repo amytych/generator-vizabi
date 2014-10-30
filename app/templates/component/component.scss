@@ -1,25 +1,25 @@
 //general styles
-#<%= identifier %> {
+.vzb-<%= identifier %> {
     //...
 }
 
 //large specific styles
-&.large {
-    #<%= identifier %> {
+&.vzb-large {
+    .vzb-<%= identifier %> {
      	//...
     }
 }
 
 //medium specific styles
-&.medium {
-    #<%= identifier %> {
+&.vzb-medium {
+    .vzb-<%= identifier %> {
         //...
     }
 }
 
 //small specific styles
-&.small {
-    #<%= identifier %> {
+&.vzb-small {
+    .vzb-<%= identifier %> {
         //...
     }
 }
