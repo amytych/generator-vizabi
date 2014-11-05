@@ -182,19 +182,19 @@ var VizabiGenerator = yeoman.generators.Base.extend({
             header = false;
         for(var i=0, size=this.components.length; i<size; i++) {
             var comp_path = this.components[i];
-            var placeholder = ".vizabi-your-placeholder";
+            var placeholder = ".vzb-your-placeholder";
 
             //quick fix to improve quality of generated template
             if(comp_path.indexOf("header") != -1) {
-                placeholder = ".vizabi-tool-title";
+                placeholder = ".vzb-tool-title";
                 header = true;
             }
             if(comp_path.indexOf("time") != -1) {
-                placeholder = ".vizabi-tool-timeslider";
+                placeholder = ".vzb-tool-timeslider";
                 timeslider = true;
             }
             if(comp_path.indexOf("button") != -1) {
-                placeholder = ".vizabi-tool-buttonlist";
+                placeholder = ".vzb-tool-buttonlist";
                 buttonlist = true;
             }
 
