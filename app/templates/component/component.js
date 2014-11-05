@@ -1,20 +1,18 @@
 //<%= name %>
 define([
     'd3',
-    'lodash',
-    'base/utils',
     'base/component'
-], function(d3, _, utils, Component) {
+], function(d3, Component) {
 
     var <%= js_name %> = Component.extend({
 
         /**
-         * Initializes the component.
+         * Initializes the timeslider.
          * Executed once before any template is rendered.
-         * @param options The options passed to the component
-         * @param context The component's parent component or tool
+         * @param config The options passed to the component
+         * @param context The component's parent
          */
-        init: function(options, context) {
+        init: function(config, context) {
             this.template = "components/<%= subfolder %><%= identifier %>/<%= identifier %>";
 
             //specifying subcomponents
@@ -26,14 +24,17 @@ define([
             },
             <% } %>];
 
+            // how to specify a default model if none is provided (and if not Model)
+            // this.default_model = TimeModel;
+
             //contructor is the same as any component
-            this._super(options, context);
+            this._super(config, context);
         },
 
         /**
          * Executes after the template is loaded and rendered.
          * Ideally, it contains HTML instantiations related to template
-         * At this point, this.element and this.placeholder are available as a d3 objects
+         * At this point, this.element and this.placeholder are available as a d3 object
          */
         postRender: function() {
             //E.g: var graph = this.element.select('#graph');

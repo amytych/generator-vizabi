@@ -8,11 +8,12 @@ define([
         /**
          * Initializes the tool.
          * Executed once before any template is rendered.
-         * @param options The options passed to the tool
+         * @param {Object} config Initial config, with name and placeholder
+         * @param {Object} options Options such as state, data, etc
          */
-        init: function(options) {
+        init: function(config, options) {
             
-            this.name = <%= identifier %>;
+            this.name = "<%= identifier %>";
             this.template = "tools/<%= subfolder %><%= identifier %>/<%= identifier %>";
 
 	        //specifying components
@@ -25,64 +26,49 @@ define([
             <% } %>];
 
             //constructor is the same as any tool
-            this._super(options);
+            this._super(config, options);
         },
 
         /**
          * Returns the data query for this tool, based on the tool model.
-         * @param toolModel The tool model, automatically instantiated by every tool. It contains state info.
+         * @param model The tool model
          */
-        getQuery: function(toolModel) {
+        getQuery: function(model) {
+            var state = model.state;
             return [{
                 "from": "data",
-                "select": ["geo", "geo.name", "time", "geo.region", "geo.category", toolModel.get("show.indicator")],
+                "select": ["geo", "geo.name", "time", "geo.region", "geo.category", state.show.indicator],
                 "where": {
-                    "geo": toolModel.get("show.geo"),
-                    "geo.category": toolModel.get("show.geo_category"),
-                    "time": [toolModel.get("show.time_start") + "-" + toolModel.get("show.time_end")]
+                    "geo": state.show.geo,
+                    "geo.category": state.show.geo_category,
+                    "time": [state.time.start + "-" + state.time.end]
                 }
             }];
         },
 
         /**
-         * Performs model validation
-         * It returns the changed model if changes occur or 'false' if no changes occur
-         * Ideally, it validates correlation between submodels (data, time, show, etc)
-         * @param toolModel The tool model, automatically instantiated by every tool. It contains state info.
+         * Validating the tool model
+         * @param model the current tool model to be validated
          */
         toolModelValidation: function(model) {
-            var changes = false;
 
             /* Example of model validation for time, show and data 
 
-            if (!model.get("show.time_start") || model.get("time.start") != model.get("show.time_start")) {
-                model.set("show.time_start", model.get("time.start"));
-                changes = model;
+            var state = model.state,
+                data = model.data;
+
+            //don't validate anything if data hasn't been loaded
+            if(!data.getItems() || data.getItems().length < 1) {
+                return;
             }
-            if (!model.get("show.time_end") || model.get("time.end") != model.get("show.time_end")) {
-                model.set("show.time_end", model.get("time.end"));
-                changes = model;
+            if (state.time.start < data.getLimits('time').min) {
+                state.time.start = data.getLimits('time').min;
             }
-            if (model.get("show.time_start") < model.get("data.time_start")) {
-                model.set("show.time_start", model.get("data.time_start"));
-                changes = model;
-            }
-            if (model.get("show.time_end") > model.get("data.time_end")) {
-                model.set("show.time_end", model.get("data.time_end"));
-                changes = model;
-            }
-            if (model.get("time.start") < model.get("show.time_start")) {
-                model.set("time.start", model.get("show.time_start"));
-                changes = model;
-            }
-            if (model.get("time.end") > model.get("show.time_end")) {
-                model.set("time.end", model.get("show.time_end"));
-                changes = model;
+            if (state.time.end > data.getLimits('time').max) {
+                state.time.end = data.getLimits('time').max;
             }
 
             * End of example */
-
-            return changes;
         }
     });
 
