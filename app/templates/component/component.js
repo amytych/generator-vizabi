@@ -7,10 +7,10 @@ define([
     var <%= js_name %> = Component.extend({
 
         /**
-         * Initializes the timeslider.
+         * Initializes the component (<%= name %>).
          * Executed once before any template is rendered.
-         * @param config The options passed to the component
-         * @param context The component's parent
+         * @param {Object} config The options passed to the component
+         * @param {Object} context The component's parent
          */
         init: function(config, context) {
             this.template = "components/<%= subfolder %><%= identifier %>/<%= identifier %>";
@@ -34,10 +34,10 @@ define([
         /**
          * Executes after the template is loaded and rendered.
          * Ideally, it contains HTML instantiations related to template
-         * At this point, this.element and this.placeholder are available as a d3 object
+         * At this point, this.element and this.placeholder are available as d3 objects
          */
         postRender: function() {
-            //E.g: var graph = this.element.select('#graph');
+            //E.g: var graph = this.element.select('.vzb-graph');
         },
 
         /**

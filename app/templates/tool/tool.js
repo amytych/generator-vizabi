@@ -6,7 +6,7 @@ define([
     var <%= js_name %> = Tool.extend({
 
         /**
-         * Initializes the tool.
+         * Initializes the tool (<%= name %>).
          * Executed once before any template is rendered.
          * @param {Object} config Initial config, with name and placeholder
          * @param {Object} options Options such as state, data, etc
