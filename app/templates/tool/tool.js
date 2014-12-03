@@ -30,23 +30,6 @@ define([
         },
 
         /**
-         * Returns the data query for this tool, based on the tool model.
-         * @param model The tool model
-         */
-        getQuery: function(model) {
-            var state = model.state;
-            return [{
-                "from": "data",
-                "select": ["geo", "geo.name", "time", "geo.region", "geo.category", state.show.indicator],
-                "where": {
-                    "geo": state.show.geo,
-                    "geo.category": state.show.geo_category,
-                    "time": [state.time.start + "-" + state.time.end]
-                }
-            }];
-        },
-
-        /**
          * Validating the tool model
          * @param model the current tool model to be validated
          */

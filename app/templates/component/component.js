@@ -15,6 +15,10 @@ define([
         init: function(config, context) {
             this.template = "components/<%= subfolder %><%= identifier %>/<%= identifier %>";
 
+            //determine which models this component expects
+            //Example:
+            //this.model_expects = ["rows", "time"];
+
             //specifying subcomponents
             this.components = [<%
             for (var i in components) { %>{
@@ -23,9 +27,6 @@ define([
                 //model: ['time']  //pass this model to this component 
             },
             <% } %>];
-
-            // how to specify a default model if none is provided (and if not Model)
-            // this.default_model = TimeModel;
 
             //contructor is the same as any component
             this._super(config, context);
@@ -36,8 +37,21 @@ define([
          * Ideally, it contains HTML instantiations related to template
          * At this point, this.element and this.placeholder are available as d3 objects
          */
-        postRender: function() {
+        domReady: function() {
             //E.g: var graph = this.element.select('.vzb-graph');
+
+            /* You may also listen to changes in model:
+
+            this.model.time.on({
+                "change": function(evt) {
+                    console.log("Time model changed:", evt);
+                },
+                "change:start": function() {
+                    console.log("The start of time has changed");
+                }
+            });
+
+             */
         },
 
         /**
@@ -45,7 +59,7 @@ define([
          * Ideally, only operations related to changes in the model
          * At this point, this.element is available as a d3 object
          */
-        update: function() {
+        modelReady: function() {
             //E.g: var year = this.model.get('value');
         },
 
